@@ -26,6 +26,25 @@ void LL_insert_to_beginning(Node** head,int newData){ //One without assignment n
     *head = newNode;
 }
 
+void LL_insert_before(Node** head, int newdata, int target){
+    Node* temp = *head;
+    Node* newNode = new Node();
+    newNode -> data = newdata;
+    if(temp -> data == target){
+        LL_insert_to_beginning(head, newdata);
+        return;
+    }
+    while(temp -> next -> data != target && temp -> next != NULL){
+        temp = temp ->next;
+        if(temp -> next == NULL){
+            break;
+        }
+    }
+    newNode -> next = temp -> next;
+    temp -> next = newNode;
+    return;
+}
+
 void LL_insert_after(Node* head, int newData, int target){
     Node* temp = head;
     while(temp -> next != NULL && temp -> data != target){
@@ -82,6 +101,9 @@ int main(){
     LL_insert_at_end(head, 0);
 
     LL_delete_node(&head,10);
+    LL_insert_before(&head, 400,4);
+    LL_insert_before(&head, 300,3);
+    LL_insert_before(&head, 700,7);
     Node* Cursor;
     Cursor = head;
     while(Cursor){
